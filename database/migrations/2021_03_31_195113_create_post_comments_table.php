@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentResumesTable extends Migration
+class CreatePostCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCommentResumesTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment_resumes', function (Blueprint $table) {
+        Schema::create('post_comments', function (Blueprint $table) {
             $table->id();
             $table->text('text');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('resumes_id');
+            $table->unsignedBigInteger('post_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('resumes_id')->references('id')->on('resumes');
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateCommentResumesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment_resumes');
+        Schema::dropIfExists('post_comments');
     }
 }

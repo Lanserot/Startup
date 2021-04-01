@@ -13,42 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PostController@index');
+
+Route::group(['prefix' => 'vacancy'], function (){
+    Route::get('/', 'PostController@posts')->name('vacancy');
+    Route::get('/new', 'PostController@new')->name('new.vacancy');
+    Route::post('/new', 'PostController@create')->name('create.vacancy');
+    Route::get('/{id}', 'PostController@view')->name('view.vacancy');
+
 });
-Route::get('/vacancies', function () {
-    return view('welcome');
+
+Route::group(['prefix' => 'resume'], function (){
+    Route::get('/', 'PostController@posts')->name('resume');
+    Route::get('/new', 'PostController@new')->name('new.resume');
+    Route::post('/new', 'PostController@create')->name('create.resume');
+    Route::get('/{id}', 'PostController@view')->name('view.resume');
+
+
 });
-Route::get('/me', function () {
-    return view('welcome');
+
+Route::group(['prefix' => 'profiles'], function (){
+    Route::get('/', 'UserController@index');
+    Route::get('/{id}', 'UserController@view');
 });
-Route::get('/my-posts', function () {
-    return view('welcome');
-});
-Route::get('/chats', function () {
-    return view('welcome');
-});
-Route::get('/new-vacancy', function () {
-    return view('welcome');
-});
-Route::get('/new-resume', function () {
-    return view('welcome');
-});
-Route::get('/donate', function () {
-    return view('welcome');
-});
-Route::get('/vacancies/{id}', function ($id) {
-    return view('welcome');
-});
-Route::get('/profiles', function () {
-    return view('welcome');
-});
-Route::get('/profiles/{id}', function ($id) {
-    return view('welcome');
-});
-Route::get('/resumes', function () {
-    return view('welcome');
-});
-Route::get('/resumes/{id}', function ($id) {
-    return view('welcome');
-});
+
+Route::get('/me', 'MeController@index');
+Route::get('/my-posts', 'MeController@posts');
+
+
+Route::get('/chats', 'ChatController@index');
+
+Route::get('/donate', 'DonateController@index');
