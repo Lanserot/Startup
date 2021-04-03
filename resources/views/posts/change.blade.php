@@ -10,8 +10,8 @@
         <input type="text" class="form-control" name="title" required>
         <p>Описание</p>
         <textarea name="description" id="" cols="30" rows="10" class="form-control" required></textarea>
-        <p>цена</p>ы
-        <input type="number" class="form-control" name="price">
+        <p>цена</p>
+        <input type="number" class="form-control" min="0" name="price">
         <button class="btn btn-success">Создать</button>
     </form>
     @error('title')

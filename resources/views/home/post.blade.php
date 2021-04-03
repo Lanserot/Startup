@@ -1,14 +1,25 @@
 <div class="row">
     @foreach($posts as $post)
         <?php $info = $post->userInfo($post->user_id)?>
-        <div class="col-lg-12 mt-3 mb-3" style="border: 1px solid seashell; padding: 15px; max-height: 85px; overflow: hidden">
+        <div class="col-lg-12 mt-1 mb-1" style="border: 1px solid seashell;
+box-shadow: 0 0 5px -3px silver;
+border-radius: 15px;
+padding: 15px;">
             <a href="{{route('view.' . $post->category, $post->id)}}">{{ $post->title }}</a>
-            <p>{{$post->description}}</p>
-            <br>
-            имя {{ $info['first_name'] }} {{ $info['second_name'] }}<br>
-            {{ $post->count_view }} просмотры<br>
-            {{ $post->count_comment }} комменты<br>
-            {{ $post->price }} цена
+            <p style=" max-height: 50px;
+                white-space: nowrap; /* Отменяем перенос текста */
+                overflow: hidden; /* Обрезаем содержимое */
+                padding: 15px 0; /* Поля */
+                text-overflow: ellipsis; /* Многоточие */">
+                {{$post->description}}
+            </p>
+            <div>
+                имя {{ $info['first_name'] }} {{ $info['second_name'] }}
+                {{ $post->count_view }} просмотры
+                {{ $post->count_comment }} комменты
+                {{ $post->price }} цена
+            </div>
+
 
         </div>
     @endforeach

@@ -21,7 +21,7 @@ class PostController extends Controller
 
     public function posts()
     {
-        $category =  \Request::route()->getName();
+        $category = \Request::route()->getName();
 
         $page = $category == 'resume' ? 'Резюме' : 'Вакансии';
 
@@ -51,9 +51,9 @@ class PostController extends Controller
         $category = explode('.', \Request::route()->getName());
 
         $validated = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'price' => 'required',
+            'title' => 'required|max:255|min:1',
+            'description' => 'required|min:1',
+            'price' => 'required|integer|min:0',
         ]);
 
         $pay = $request['price'] == 0 ? 0 : 1;
@@ -70,5 +70,10 @@ class PostController extends Controller
         Posts::insert($post);
 
         return redirect($category[1] . '/' . DB::getPdo()->lastInsertId());
+    }
+
+    public function change()
+    {
+
     }
 }

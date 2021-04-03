@@ -3,7 +3,7 @@
     <?php
     $route = explode('.', \Request::route()->getName());
     ?>
-
+    <h1>{{$route == 'vacancy' ? 'Новая вакансия' : 'Новое резюме'}}</h1>
     <form action="{{route('create.' . $route[1])}}" method="post">
         @csrf
         <p>Заголовок</p>
@@ -14,7 +14,13 @@
         <input type="number" class="form-control" name="price">
         <button class="btn btn-success">Создать</button>
     </form>
-    @error('title')
-    <div class="alert alert-danger">{{ $message }}</div>
-    @enderror
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection
